@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>登录</title>
+<style>
+    body{
+        background-image: url('./img/background.png');
+        background-size: 100% 100vh;
+        background-repeat: no-repeat;
+        margin: 0;
+        left: 0;
+    }
+    .dialog-bg{
+        width: 100%;
+        background-color: rgba(0,0,0,.5);
+    }
+    .code{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 270px;
+    }
+    .dialog-cont{
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .dialog-p{
+        color: #fff;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        margin-top: -22px;
+        font-size: 18px;
+        letter-spacing: 2px;
+        padding: 0 4%;
+    }
+    @media screen and (max-width: 320px){
+        .code{
+            width: 250px;
+        }
+    }
+    .p-tip{
+        color: #d9534f;
+        padding: 0.8rem 5%;
+        font-size: .6rem;
+        min-height: 20px;
+        line-height: 20px;
+        text-align: center;
+    }
+    .tip{
+        padding: 0.1rem 15%;
+    }
+</style>
+</head>
+<body>
+	<div class="login-top"><img src="img/logo1.png"></div>
+    <div class="dev_tel"><input class="tel" type="tel" name="" placeholder="请输入手机号码" maxlength="11"></div>
+    <div class="inp-cont clear">
+    	<input class='fl chk' type="tel" name="" placeholder="请输入验证码" maxlength="6">
+        <input class='fr btn' type="button" name="" value="获取验证码">
+    </div>
+    <div class="tip"></div>
+    <input class="login" type="button" name="" value="登  录">
+    <!-- <p class="p-tip">现在使用此在线支付房租每笔随机立减5-15元</p> -->
+    <div class="dialog-cont">
+        <div class="dialog-bg"></div>
+        <img class="code" src="img/rightTop.svg"/>
+        <p class="dialog-p">如需支付宝支付,请点击右上角按钮在浏览器中打开登录</p>
+    </div>
+    <!-- 发送验证码成功提示 -->
+    <div id="messageTip"></div>
+    <!-- 发送验证码失败提示 -->
+    <div id="messageTipFail"></div>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+		<title>react学习</title>
+		<script type="text/javascript" src="../build/react-0.14.0.js"></script>
+		<script type="text/javascript" src="../build/react-dom-0.14.0.js"></script>
+		<script type="text/javascript" src="../build/browser.min.js"></script>
+		<style type="text/css">
+			#txt{
+				width: 400px;
+				height: 400px;
+				overflow: scroll;
+				margin: 0 auto;
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li id="example1"></li>
+			<li id="example2"></li>
+			<li id="example3"></li>
+			<li id="example4"></li>
+			<li id="example5"></li>
+			<li id="example6"></li>
+			<li id="example7"></li>
+			<li id="example8"></li>
+			<li id="example9"></li>
+			<li id="example10"></li>
+		</ul>
+		<div id="txt"></div>
+		<!-- <div></div>
+		<div id="example2"></div>
+		<div id="example3"></div>
+		<div id="example4"></div> -->
+	</body>
+</html>
+<script type="text/javascript" src="../build/jquery.min.js"></script>
+<script type="text/javascript">
+    function doAjaxCall()
+    {
+        var request=null;
+        if(window.XMLHttpRequest)
+        {
+            request=new XMLHttpRequest();
+        }else if(window.ActiveXObject)
+        {
+            request=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if(request)
+        {
+            request.open("get",'http://121.41.128.239:8144/txt/tjzj.txt',true);
+            request.onreadystatechange=function()
+            {
+            	console.log(request.status)
+                if(request.readyState===4)
+                {
+                	console.log(request.responseText)
+                    if (request.status == 200 || request.status == 0)
+                    {
+                       document.getElementById("txt").innerHTML=request.responseText;
+                    }
+                }
+            }
+            request.send(null);
+        }else{
+            alert("error");
+            }
+    }
+    // doAjaxCall()
+</script>
+
+<!-- 案例1 -->
+<script type="text/babel">
+    ReactDOM.render(
+      <h1>Hello World</h1>,
+      document.getElementById('example1')
+    )
+</script>
+
+<!-- 案例2 -->
+<script type="text/babel">
+	var HelloMessage = React.createClass({
+		render: function () {
+			return <h1>Hello {this.props.name}</h1>
+		}
+	});
+    ReactDOM.render(
+      <HelloMessage name="Join" />,
+      document.getElementById('example2')
+    )
+</script>
+
+<!-- 案例3 -->
+<script type="text/babel">
+	var NotesList = React.createClass({
+		render: function () {
+			return (
+				<ol>
+				{
+					React.Children.map(this.props.children, function (child) {
+						return <li>{child}</li>
+					})
+				}
+				</ol>
+			)
+		}
+	});
+
+	ReactDOM.render(
+		<NotesList>
+			<p>杨</p>
+			<p>蜗</p>
+		</NotesList>,
+		document.getElementById('example3')
+	)
+</script>
+<!-- 案例4 -->
+<script type="text/babel">
+	var MyTitle = React.createClass({
+		propTypes: {
+			title: React.PropTypes.string.isRequired,
+		},
+		render: function () {
+			return  <h1>{this.props.title}</h1>
+		}
+	});
+
+	var data = '1023'
+	ReactDOM.render(
+		<MyTitle title={data}></MyTitle>,
+		document.getElementById('example4')
+	)
+</script>
+<!-- 案例5 -->
+<script type="text/babel">
+	var MyTitle = React.createClass({
+		getDefaultProps: function () {
+			return {
+				title: '小蜗'
+			}
+		},
+		render: function () {
+			return  <h1>{this.props.title}</h1>
+		}
+	});
+
+	ReactDOM.render(
+		<MyTitle></MyTitle>,
+		document.getElementById('example5')
+	)
+</script>
+<script type="text/babel">
+	var MyComponent = React.createClass({
+		handClick: function() {
+			this.refs.myTextInput.focus();
+			console.log(this.state)
+		},
+		render: function() {
+			return (
+				<div>
+					<input type="text" ref="myTextInput" name="" />
+					<input type="button" value="Focus the text input" name="" onClick={this.handClick} />
+				</div>
+			)
+		}
+	})
+
+	ReactDOM.render(
+		<MyComponent></MyComponent>,
+		document.getElementById('example6')
+	)
+</script>
+<script type="text/label">
+	var LikeButton = React.createClass({
+		getInitialState: function () {
+			return {like: false}
+		},
+		handleClick: function (event) {
+			this.setState({liked: !this.state.liked})
+		},
+		render: function () {
+			var text = this.state.liked ? 'like' : "haven'\t liked";
+			return (
+				<p onClick={this.handleClick}>
+					You {text} this. Click to toggle
+				</p>
+			)
+		}
+	})
+</script>
+
+<!-- 案例7 -->
+<script type="text/babel">
+	var LikeButton = React.createClass({
+		getInitialState: function () {
+			return {liked: false};
+		},
+		handleClick: function () {
+			console.log(this.state.liked)
+			this.setState({liked:!this.state.liked});
+		},
+		render: function () {
+			var text = this.state.liked? 'like': "haven\'t liked";
+			return (
+				<p onClick={this.handleClick}>
+					You {text} this. Click to toggle
+				</p>
+			);
+		}
+	});
+
+	ReactDOM.render(
+		<LikeButton></LikeButton>,
+		document.getElementById('example7')
+	);
+</script>
+<!-- 案例8 -->
+<script type="text/babel">
+	var Input = React.createClass({
+		getInitialState: function () {
+			return {value: 'Hello!'}
+		},
+		handleChange: function (event) {
+			console.log(event)
+			this.setState({value: event.target.value})
+		},
+		render: function () {
+			var value = this.state.value
+			return (
+				<div>
+					<input type="text" value={value} onChange={this.handleChange} />
+					<p>{value}</p>
+				</div>
+			)
+		}
+	});
+
+	ReactDOM.render(
+		<Input />,
+		document.getElementById('example8')
+	)
+</script>
+
+{/*案例9*/}
+
+
+
+
+
+
